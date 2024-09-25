@@ -5,10 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-    // Render tasks on page load
     tasks.forEach(task => renderTask(task));
 
-    // Add new task
+  
     addTaskBtn.addEventListener('click', () => {
         const taskText = taskInput.value.trim();
         if (taskText === '') return;
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateLocalStorage();
     });
 
-    // Render task in UI
+    
     function renderTask(task) {
         const li = document.createElement('li');
         li.className = `task ${task.completed ? 'completed' : ''}`;
@@ -40,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         taskList.appendChild(li);
 
-        // Complete task
         li.querySelector('.complete-btn').addEventListener('click', () => {
             task.completed = !task.completed;
             li.classList.toggle('completed');
@@ -48,14 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
             updateLocalStorage();
         });
 
-        // Delete task
+        
         li.querySelector('.delete-btn').addEventListener('click', () => {
             taskList.removeChild(li);
             tasks = tasks.filter(t => t.id !== task.id);
             updateLocalStorage();
         });
 
-        // Drag and drop functionality
         li.addEventListener('dragstart', handleDragStart);
         li.addEventListener('dragover', handleDragOver);
         li.addEventListener('drop', handleDrop);
@@ -64,12 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
         li.addEventListener('dragend', handleDragEnd);
     }
 
-    // Local storage update
     function updateLocalStorage() {
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
 
-    // Drag and drop functionality
+   
     let draggedItem = null;
 
     function handleDragStart(e) {
@@ -78,12 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleDragOver(e) {
-        e.preventDefault();  // Necessary to allow dropping
+        e.preventDefault();  
     }
 
     function handleDragEnter(e) {
         if (this !== draggedItem) {
-            this.classList.add('over');  // Visual feedback for the drop target
+            this.classList.add('over');  
         }
     }
 
@@ -94,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleDrop() {
         this.classList.remove('over');
 
-        // Insert the dragged item before the current item
+        
         if (this !== draggedItem) {
             taskList.insertBefore(draggedItem, this);
             updateTaskOrder();
@@ -105,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         this.classList.remove('dragging');
     }
 
-    // Update task order in the array based on UI changes
     function updateTaskOrder() {
         const newTasksOrder = [];
         taskList.querySelectorAll('.task').forEach(li => {
