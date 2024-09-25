@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleDragStart(e) {
         draggedItem = this;
-        setTimeout(() => this.classList.add('dragging'), 0);  // Hide the item temporarily while dragging
+        setTimeout(() => this.classList.add('dragging'), 0);  
     }
 
     function handleDragOver(e) {
